@@ -1,1 +1,5 @@
-// test
+package main
+
+func main() {
+
+}
