@@ -15,5 +15,3 @@
 
 # https://github.com/Microsoft/vscode/issues/40742
 .vscode/
-
-*.code-workspace
