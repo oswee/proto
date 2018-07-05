@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+//import "empty.proto";
+// Oswee Accounting API
+package api;
+
+// protoc -I D:\Code\Go\src\github.com\oswee\proto\v1 D:\Code\Go\src\github.com\oswee\proto\v1\api.proto --go_out=plugins=grpc:D:\Code\Go\src\github.com\oswee\proto\v1
+
+message PingMessage {
+    string greeting = 1;
+}
+
+service Ping {
+    rpc SayHello(PingMessage) returns (PingMessage) {}
+}
