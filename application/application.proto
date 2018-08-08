@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "application";
+
+service ApplicationService {
+    rpc ListApplications(ListApplicationsRequest) returns(ListApplicationsResponse);
+}
+
+message ListApplicationsRequest {
+    string query = 1;
+    int32 page_number = 2;
+    int32 result_per_page = 3;
+}
+message ListApplicationsResponse {
+    repeated Application applications = 1;
+}
+message Application{
+    int64 id = 1;
+    string name = 2;
+    string permalink = 3;
+}
