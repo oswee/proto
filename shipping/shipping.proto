@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "shipping";
+
+service ShippingService {
+    rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse);
+}
+
+message ListDeliveryOrdersRequest {
+    int64 stakeholder_id = 1;
+    int32 page_number = 2;
+    int32 result_per_page = 3;
+}
+
+message ListDeliveryOrdersResponse {
+    repeated DeliveryOrder delivery_orders = 1;
+}
+
+message DeliveryOrder {
+    int64 id = 1;
+    int64 stakeholder_id = 2;
+    string destination_address = 3;
+    float total_weight = 4;
+    int64 routing_sequence = 5;
+}
