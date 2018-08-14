@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "metric";
+
+service Metric {
+    rpc CreatePageView(CreatePageViewRequest) returns(Empty);
+}
+
+message Empty {}
+
+message CreatePageViewRequest {
+    PageView page_view = 1;
+}
+
+message PageView {
+    int64 id = 1;
+    string x_forwarded_host = 2;
+    string x_forwarded_server = 3;
+    string user_agent = 4;
+    string x_forwarded_for = 5;
+    string request_time = 6;
+    string request_headers = 7;
+}
