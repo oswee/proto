@@ -4,7 +4,13 @@ option go_package = "shipping";
 
 service ShippingService {
     rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse);
+    rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns(DeliveryOrder);
 }
+
+message CreateDeliveryOrderRequest {
+    DeliveryOrder delivery_order = 1;
+}
+
 
 message ListDeliveryOrdersRequest {
     int64 stakeholder_id = 1;
@@ -22,8 +28,8 @@ message DeliveryOrder {
     string reference = 3;
     string destination_address = 4;
     string destination_zip = 5;
-    float destination_lat = 6;
-    float destination_lng = 7;
-    float total_weight = 8;
+    double destination_lat = 6;
+    double destination_lng = 7;
+    double total_weight = 8;
     int64 routing_sequence = 9;
 }
