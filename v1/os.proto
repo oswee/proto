@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package oswee.proto.v1;
+
+option go_package = "proto";
+
+message Empty {}

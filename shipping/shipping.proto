@@ -4,13 +4,17 @@ option go_package = "shipping";
 
 service ShippingService {
     rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse);
-    rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns(DeliveryOrder);
+    rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);
+    rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (EmptyDeliveryOrder);
 }
 
 message CreateDeliveryOrderRequest {
     DeliveryOrder delivery_order = 1;
 }
 
+message DeleteDeliveryOrderRequest {
+    int64 id = 1;
+}
 
 message ListDeliveryOrdersRequest {
     int64 stakeholder_id = 1;
@@ -33,3 +37,5 @@ message DeliveryOrder {
     double total_weight = 8;
     int64 routing_sequence = 9;
 }
+
+message EmptyDeliveryOrder {}
