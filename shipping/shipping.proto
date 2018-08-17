@@ -5,15 +5,12 @@ option go_package = "shipping";
 service ShippingService {
     rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse);
     rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);
+    rpc UpdateDeliveryOrder(UpdateDeliveryOrderRequest) returns (DeliveryOrder);
     rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (EmptyDeliveryOrder);
 }
 
 message CreateDeliveryOrderRequest {
     DeliveryOrder delivery_order = 1;
-}
-
-message DeleteDeliveryOrderRequest {
-    int64 id = 1;
 }
 
 message ListDeliveryOrdersRequest {
@@ -24,6 +21,14 @@ message ListDeliveryOrdersRequest {
 
 message ListDeliveryOrdersResponse {
     repeated DeliveryOrder delivery_orders = 1;
+}
+
+message UpdateDeliveryOrderRequest {
+    DeliveryOrder delivery_order = 1;
+}
+
+message DeleteDeliveryOrderRequest {
+    int64 id = 1;
 }
 
 message DeliveryOrder {
