@@ -7,6 +7,7 @@ service ShippingService {
     rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);
     rpc UpdateDeliveryOrder(UpdateDeliveryOrderRequest) returns (DeliveryOrder);
     rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (EmptyDeliveryOrder);
+    rpc GeoCodeDeliveryOrder(GeoCodeDeliveryOrderRequest) returns (DeliveryOrder);
 }
 
 message CreateDeliveryOrderRequest {
@@ -29,6 +30,12 @@ message UpdateDeliveryOrderRequest {
 
 message DeleteDeliveryOrderRequest {
     int64 id = 1;
+}
+
+message GeoCodeDeliveryOrderRequest {
+    int64 id = 1;
+    int64 stakeholder_id = 2;
+    string address = 3;
 }
 
 message DeliveryOrder {
