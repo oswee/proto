@@ -1,12 +1,19 @@
+// protoc v1/dms/dms.proto -I. --go_out=plugin=grpc:D:\Code\Go\src
+
 syntax = "proto3";
 
-option go_package = "shipping";
+option go_package = "github.com/oswee/stubs/dms/v1";
+
+package oswee.dms.v1;
+
+// Import path should be relative to repository root
+import "protobuf.proto";
 
 service ShippingService {
     rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse);
     rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);
     rpc UpdateDeliveryOrder(UpdateDeliveryOrderRequest) returns (DeliveryOrder);
-    rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (EmptyDeliveryOrder);
+    rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (oswee.protobuf.Empty);
     rpc GeoCodeDeliveryOrder(GeoCodeDeliveryOrderRequest) returns (DeliveryOrder);
 }
 
@@ -49,5 +56,3 @@ message DeliveryOrder {
     double total_weight = 8;
     int64 routing_sequence = 9;
 }
-
-message EmptyDeliveryOrder {}

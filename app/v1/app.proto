@@ -1,6 +1,10 @@
+// protoc v1/app/app.proto -I. --go_out=plugin=grpc:D:\Code\Go\src
+
 syntax = "proto3";
 
-option go_package = "app";
+option go_package = "github.com/oswee/stubs/app/v1";
+
+package oswee.app.v1;
 
 service ApplicationService {
     rpc GetApplication(GetApplicationRequest) returns(GetApplicationResponse);

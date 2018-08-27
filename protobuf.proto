@@ -1,0 +1,11 @@
+// protoc v1/protobuf.proto -I. --go_out=plugin=grpc:D:\Code\Go\src
+
+syntax = "proto3";
+
+option go_package = "github.com/oswee/stubs";
+
+package oswee.protobuf;
+
+message Empty{
+
+}

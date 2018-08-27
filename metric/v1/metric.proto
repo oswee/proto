@@ -1,12 +1,17 @@
+// protoc v1/metric/metric.proto -I. --go_out=plugin=grpc:D:\Code\Go\src
+
 syntax = "proto3";
 
-option go_package = "metric";
+option go_package = "github.com/oswee/stubs/metric/v1";
+
+package oswee.metric.v1;
+
+// Import path should be relative to repository root
+import "protobuf.proto";
 
 service Metric {
-    rpc CreatePageView(CreatePageViewRequest) returns(Empty);
+    rpc CreatePageView(CreatePageViewRequest) returns(oswee.protobuf.Empty);
 }
-
-message Empty {}
 
 message CreatePageViewRequest {
     PageView page_view = 1;

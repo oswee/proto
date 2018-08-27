@@ -1,6 +1,12 @@
+// protoc v1/crm/crm.proto -I. --go_out=plugin=grpc:D:\Code\Go\src
+
 syntax = "proto3";
 
-option go_package = "crm";
+option go_package = "github.com/oswee/stubs/crm/v1";
+
+package oswee.crm.v1;
+
+
 
 service Customers {
     rpc ListCustomers(ListCustomersRequest) returns(ListCustomersResponse);
