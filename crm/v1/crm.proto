@@ -1,4 +1,4 @@
-// protoc v1/crm/crm.proto -I. --go_out=plugin=grpc:D:\Code\Go\src
+// protoc -I . -I crm/v1 --go_out=plugins=grpc:%GOPATH%/src/ crm/v1/crm.proto
 
 syntax = "proto3";
 

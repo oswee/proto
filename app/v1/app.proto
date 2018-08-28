@@ -1,4 +1,4 @@
-// protoc v1/app/app.proto -I. --go_out=plugin=grpc:D:\Code\Go\src
+// protoc -I . -I app/v1 --go_out=plugins=grpc:%GOPATH%/src/ app/v1/app.proto
 
 syntax = "proto3";
 
