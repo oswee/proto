@@ -1,0 +1,28 @@
+// protoc -I . -I session/v1 --go_out=plugins=grpc:%GOPATH%/src/ session/v1/session.proto
+
+syntax = "proto3";
+
+option go_package = "github.com/oswee/stubs/session/v1";
+
+package oswee.session.v1;
+
+service SessionService {
+    rpc CreateSession(CreateSessionRequest) returns (Session);
+    rpc GetSession(GetSessionRequest) returns (Session);
+}
+
+message CreateSessionRequest {
+    Session session = 1;
+}
+
+message GetSessionRequest {
+    Session session = 1;
+}
+
+message Session {
+    int64 id = 1;
+    string user_session_id = 2;
+    int64 user_id = 3;
+    int64 permission_id = 4;
+    string create_time =5;
+}

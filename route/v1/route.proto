@@ -1,0 +1,32 @@
+// protoc -I . -I route/v1 --go_out=plugins=grpc:%GOPATH%/src/ route/v1/route.proto
+
+syntax = "proto3";
+
+option go_package = "github.com/oswee/stubs/route/v1";
+
+package oswee.route.v1;
+
+service RouteService {
+    rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse);
+    rpc CreateRoute(CreateRouteRequest) returns (Route);
+}
+
+message CreateRouteRequest {
+    Route route = 1;
+}
+
+message ListRoutesRequest {
+    int64 stakeholder_id = 1;
+    int32 page_number = 2;
+    int32 result_per_page = 3;
+}
+
+message ListRoutesResponse {
+    repeated Route routes = 1;
+}
+
+message Route {
+    int64 id = 1;
+    string name = 2;
+    string create_time = 3;
+}
