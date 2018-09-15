@@ -10,11 +10,14 @@ package oswee.dms.v1;
 import "protobuf.proto";
 
 service ShippingService {
-    rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse);
     rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);
     rpc UpdateDeliveryOrder(UpdateDeliveryOrderRequest) returns (DeliveryOrder);
     rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (oswee.protobuf.Empty);
     rpc GeoCodeDeliveryOrder(GeoCodeDeliveryOrderRequest) returns (DeliveryOrder);
+}
+
+service DeliveryOrderQueryService {
+    rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse);
 }
 
 message CreateDeliveryOrderRequest {
@@ -55,4 +58,5 @@ message DeliveryOrder {
     double destination_lng = 7;
     double total_weight = 8;
     int64 routing_sequence = 9;
+    string uuid = 10;
 }
