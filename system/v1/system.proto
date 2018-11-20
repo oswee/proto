@@ -1,0 +1,31 @@
+// protoc -I . -I system/v1 --go_out=plugins=grpc:%GOPATH%/src/ system/v1/system.proto
+
+syntax = "proto3";
+
+option go_package = "github.com/oswee/stubs/system/v1";
+
+package oswee.system.v1;
+
+// Import path should be relative to repository root
+import "protobuf.proto";
+
+// service SystemService {
+//     rpc CreateSignup(CreateSignupRequest) returns (Signup);
+// }
+
+// message CreateSignupRequest {
+//     Signup signup = 1;
+// }
+
+message Service {
+    int64 id = 1;
+    int32 kind = 2;
+    string name = 3;
+    string display_name = 4;
+    Env env = 5;
+}
+
+message Env {
+    string port = 1;
+    string host =2;
+}

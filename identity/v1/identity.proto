@@ -1,0 +1,68 @@
+// protoc -I . -I identity/v1 --go_out=plugins=grpc:D:/Code/Go/src/ identity/v1/identity.proto
+// Open a new command prompt, navigate to your .proto file, run `protoc --go_out=plugins=grpc:D:/Code/Go/src/ identity.proto`
+
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/oswee/stubs/identity/v1";
+
+package oswee.identity.v1;
+
+service UserCommandService {
+    rpc CreateUser(CreateUserRequest) returns (User);
+}
+
+service UserQueryService {
+    rpc GetUserByUsername(GetUserByUsernameRequest) returns (User);
+    rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+}
+
+service UserSessionCommandService {
+    rpc CreateUserSession(CreateUserSessionRequest) returns (UserSession);
+}
+
+service UserSessionQueryService {
+    rpc GetUserSession(GetUserSessionRequest) returns (UserSession);
+}
+
+message CreateUserRequest {
+    User user = 1;
+}
+
+message GetUserByUsernameRequest {
+    User user = 1;
+}
+
+message ListUsersRequest {}
+
+message ListUsersResponse {
+    repeated User users = 1;
+}
+
+message CreateUserSessionRequest {
+    UserSession user_session = 1;
+}
+
+message GetUserSessionRequest {
+    UserSession user_session = 1;
+}
+
+message User {
+    string id = 1; // UUID of user
+    string username = 2;
+    string password = 3;
+    string primary_email = 4;
+    string fist_name = 5;
+    string last_name = 6;
+    string full_name = 7;
+    string signup_id = 8;
+    google.protobuf.Timestamp create_time = 9;
+}
+
+message UserSession {
+    string session_id = 1;
+    string user_id =2;
+    // Status ENUM
+    google.protobuf.Timestamp create_time = 9;
+}
