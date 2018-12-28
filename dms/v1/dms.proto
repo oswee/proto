@@ -1,4 +1,5 @@
 // protoc -I . -I dms/v1 --go_out=plugins=grpc:%GOPATH%/src/ dms/v1/dms.proto
+// protoc -I . -I dms/v1 --go_out=plugins=grpc:$GOPATH/src/ dms/v1/dms.proto
 
 syntax = "proto3";
 
@@ -8,6 +9,9 @@ package oswee.dms.v1;
 
 // Import path should be relative to repository root
 import "protobuf.proto";
+// https://github.com/dhrp/grpc-rest-go-example/blob/master/echo-proto/service.proto
+// import "github.com/googleapis/googleapis/google/api/annotations.proto";
+// import "google/api/annotations.proto";
 
 service ShippingService {
     rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);

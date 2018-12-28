@@ -2,32 +2,50 @@
 
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
+// import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/oswee/stubs/message/v1";
 
 package oswee.message.v1;
 
-service MessageService {
+service MessageQueryService {
+    rpc ListMessages(ListMessagesRequest) returns (ListMessagesResponse);
+}
+
+service MessageCommandService {
     rpc CreateMessage(CreateMessageRequest) returns (Message);
 }
 
-message Message {
-    string uuid = 1;
-    string subject = 2;
-    string body = 3;
-    google.protobuf.Timestamp create_time = 9;
-}
 
 message CreateMessageRequest {
     Message message = 1;
 }
 
-message Kind {
-    int32 id =1;
-    int32 status_id = 2;
-    string abrevation = 3;
-    string display_name = 4;
-    string description = 5;
-    google.protobuf.Timestamp create_time = 9;
+message ListMessagesRequest {
+    int64 stakeholder_id = 1;
+    int32 page_number = 2;
+    int32 result_per_page = 3;
 }
+
+message ListMessagesResponse {
+    repeated Message messages = 1;
+}
+
+message Message {
+    string uuid = 1;
+    int64 kind = 2; // To determine where particular kind messages should be displyed
+    string senders_name = 3;
+    string subject = 4;
+    string body = 5;
+    string create_time = 8;
+    // google.protobuf.Timestamp create_time = 9;
+}
+
+// message Kind {
+//     int32 id =1;
+//     int32 status_id = 2;
+//     string abrevation = 3;
+//     string display_name = 4;
+//     string description = 5;
+//     google.protobuf.Timestamp create_time = 9;
+// }
