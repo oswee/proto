@@ -1,17 +1,22 @@
 // protoc -I . -I dms/v1 --go_out=plugins=grpc:%GOPATH%/src/ dms/v1/dms.proto
 // protoc -I . -I dms/v1 --go_out=plugins=grpc:$GOPATH/src/ dms/v1/dms.proto
+// protoc -IC:\Users\mossila\AppData\Local\ -I. -I%GOPATH%\src -I%GOPATH%\src\github.com\grpc-ecosystem\grpc-gateway\third_party\googleapis --go_out=plugins=grpc:. test-grpc.proto
+
+// protoc -I . -I dms/v1 -I /usr/local/include -I $GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --go_out=plugins=grpc:$GOPATH/src/ dms/v1/dms.proto
+// protoc -I . -I dms/v1 -I /usr/local/include -I $GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --grpc-gateway_out=logtostderr=true:$GOPATH/src/ dms/v1/dms.proto
+
 
 syntax = "proto3";
 
-option go_package = "github.com/oswee/stubs/dms/v1";
-
 package oswee.dms.v1;
+
+option go_package = "github.com/oswee/stubs/dms/v1";
 
 // Import path should be relative to repository root
 import "protobuf.proto";
 // https://github.com/dhrp/grpc-rest-go-example/blob/master/echo-proto/service.proto
 // import "github.com/googleapis/googleapis/google/api/annotations.proto";
-// import "google/api/annotations.proto";
+import "google/api/annotations.proto";
 
 service ShippingService {
     rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);
@@ -20,8 +25,19 @@ service ShippingService {
     rpc GeoCodeDeliveryOrder(GeoCodeDeliveryOrderRequest) returns (DeliveryOrder);
 }
 
+service ShippingCommandService {
+    rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);
+    rpc UpdateDeliveryOrder(UpdateDeliveryOrderRequest) returns (DeliveryOrder);
+    rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (oswee.protobuf.Empty);
+    rpc GeoCodeDeliveryOrder(GeoCodeDeliveryOrderRequest) returns (DeliveryOrder);
+}
+
 service DeliveryOrderQueryService {
-    rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse);
+    rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse) {
+        option (google.api.http) = {
+            get: "/orders/1"
+        };
+    }
 }
 
 message CreateDeliveryOrderRequest {
