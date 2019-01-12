@@ -13,26 +13,20 @@ package oswee.dms.v1;
 option go_package = "github.com/oswee/stubs/dms/v1";
 
 // Import path should be relative to repository root
-import "protobuf.proto";
+// import "protobuf.proto";
 // https://github.com/dhrp/grpc-rest-go-example/blob/master/echo-proto/service.proto
 // import "github.com/googleapis/googleapis/google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
-
-service ShippingService {
-    rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);
-    rpc UpdateDeliveryOrder(UpdateDeliveryOrderRequest) returns (DeliveryOrder);
-    rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (oswee.protobuf.Empty);
-    rpc GeoCodeDeliveryOrder(GeoCodeDeliveryOrderRequest) returns (DeliveryOrder);
-}
 
 service ShippingCommandService {
     rpc CreateDeliveryOrder(CreateDeliveryOrderRequest) returns (DeliveryOrder);
     rpc UpdateDeliveryOrder(UpdateDeliveryOrderRequest) returns (DeliveryOrder);
-    rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (oswee.protobuf.Empty);
+    rpc DeleteDeliveryOrder(DeleteDeliveryOrderRequest) returns (google.protobuf.Empty);
     rpc GeoCodeDeliveryOrder(GeoCodeDeliveryOrderRequest) returns (DeliveryOrder);
 }
 
-service DeliveryOrderQueryService {
+service ShippingQueryService {
     rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse) {
         option (google.api.http) = {
             get: "/orders/1"
