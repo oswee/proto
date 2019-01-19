@@ -29,7 +29,7 @@ service ShippingCommandService {
 service ShippingQueryService {
     rpc ListDeliveryOrders(ListDeliveryOrdersRequest) returns (ListDeliveryOrdersResponse) {
         option (google.api.http) = {
-            get: "/orders/1"
+            get: "/1/shipping/orders"
         };
     }
 }
