@@ -15,6 +15,7 @@ service UserCommandService {
 
 service UserQueryService {
     rpc GetUserByUsername(GetUserByUsernameRequest) returns (User);
+    rpc GetUserByEmail(GetUserByEmailRequest) returns (User);
     rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
 }
 
@@ -31,6 +32,10 @@ message CreateUserRequest {
 }
 
 message GetUserByUsernameRequest {
+    User user = 1;
+}
+
+message GetUserByEmailRequest {
     User user = 1;
 }
 
@@ -56,8 +61,9 @@ message User {
     string fist_name = 5;
     string last_name = 6;
     string full_name = 7;
-    string signup_id = 8;
-    google.protobuf.Timestamp create_time = 9;
+    string display_name = 8;
+    string signup_id = 9;
+    google.protobuf.Timestamp create_time = 10;
 }
 
 message UserSession {

@@ -32,6 +32,7 @@ service ShippingQueryService {
             get: "/1/shipping/orders"
         };
     }
+    rpc GetShippingOrder(GetShippingOrderRequest) returns (DeliveryOrder);
 }
 
 message CreateDeliveryOrderRequest {
@@ -44,6 +45,10 @@ message ListDeliveryOrdersRequest {
     int32 result_per_page = 3;
 }
 
+message GetShippingOrderRequest {
+    string uuid = 1;
+}
+
 message ListDeliveryOrdersResponse {
     repeated DeliveryOrder delivery_orders = 1;
 }
@@ -53,7 +58,7 @@ message UpdateDeliveryOrderRequest {
 }
 
 message DeleteDeliveryOrderRequest {
-    int64 id = 1;
+    string uuid = 1;
 }
 
 message GeoCodeDeliveryOrderRequest {

@@ -1,4 +1,5 @@
 // protoc -I . -I signup/v1 --go_out=plugins=grpc:%GOPATH%/src/ signup/v1/signup.proto
+// protoc -I . -I signup/v1 --go_out=plugins=grpc:$GOPATH/src/ signup/v1/signup.proto
 
 syntax = "proto3";
 
@@ -15,11 +16,9 @@ message CreateSignupRequest {
 }
 
 message Signup {
-    int64 id = 1;
-    string fist_name = 2;
-    string last_name = 3;
-    string email = 4;
-    string username = 5;
-    string password = 6;
-    int64 status =8;
+    int64 uuid = 1;
+    string display_name = 2;
+    string email = 3;
+    string password = 4;
+    int64 status = 8;
 }

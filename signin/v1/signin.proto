@@ -1,4 +1,5 @@
 // protoc -I . -I signin/v1 --go_out=plugins=grpc:%GOPATH%/src/ signin/v1/signin.proto
+// protoc -I . -I signin/v1 --go_out=plugins=grpc:$GOPATH/src/ signin/v1/signin.proto
 
 syntax = "proto3";
 
@@ -13,6 +14,6 @@ service SigninService {
 }
 
 message Credentials {
-    string username = 2;
-    string password = 3;
+    string email = 1;
+    string password = 2;
 }
