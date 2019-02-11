@@ -7,8 +7,8 @@ option go_package = "github.com/oswee/stubs/app/v1";
 
 package oswee.app.v1;
 
-service ApplicationService {
-    rpc GetApplication(GetApplicationRequest) returns(GetApplicationResponse);
+service ApplicationQueryService {
+    rpc GetApplication(GetApplicationRequest) returns(Application);
     rpc ListApplications(ListApplicationsRequest) returns(ListApplicationsResponse);
 }
 

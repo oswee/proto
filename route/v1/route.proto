@@ -1,17 +1,35 @@
 // protoc -I . -I route/v1 --go_out=plugins=grpc:%GOPATH%/src/ route/v1/route.proto
+// protoc -I . -I route/v1 --go_out=plugins=grpc:$GOPATH/src/ route/v1/route.proto
 
 syntax = "proto3";
 
-option go_package = "github.com/oswee/stubs/route/v1";
-
 package oswee.route.v1;
 
-service RouteService {
-    rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse);
+option go_package = "github.com/oswee/stubs/route/v1";
+
+import "google/protobuf/empty.proto";
+
+
+service RouteCommandService {
     rpc CreateRoute(CreateRouteRequest) returns (Route);
+    rpc UpdateRoute(UpdateRouteRequest) returns (Route);
+    rpc DeleteRoute(DeleteRouteRequest) returns (google.protobuf.Empty);
+}
+
+service RouteQueryService {
+    rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse);
+    rpc GetRoute(GetRouteRequest) returns (Route);
 }
 
 message CreateRouteRequest {
+    Route route = 1;
+}
+
+message GetRouteRequest {
+    string uuid = 1;
+}
+
+message UpdateRouteRequest {
     Route route = 1;
 }
 
@@ -25,8 +43,19 @@ message ListRoutesResponse {
     repeated Route routes = 1;
 }
 
+message DeleteRouteRequest {
+    string uuid = 1;
+}
+
 message Route {
     int64 id = 1;
-    string name = 2;
-    string create_time = 3;
+    string uuid = 2;
+    string name = 3;
+    string stakeholder_id = 4;
+    string route_color = 5;
+    string status_id = 6;
+    string status_name = 7;
+    string supplier_title = 8;
+    double total_weight = 9;
+    string create_time = 10;
 }

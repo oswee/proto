@@ -71,11 +71,13 @@ message DeliveryOrder {
     int64 id = 1;
     int64 stakeholder_id = 2;
     string reference = 3;
-    string destination_address = 4;
-    string destination_zip = 5;
-    double destination_lat = 6;
-    double destination_lng = 7;
-    double total_weight = 8;
-    int64 routing_sequence = 9;
-    string uuid = 10;
+    string consignee_title = 4;
+    string destination_address = 5;
+    string destination_zip = 6;
+    double destination_lat = 7;
+    double destination_lng = 8;
+    int32 parts_count = 9;
+    double total_weight = 10;
+    int64 routing_sequence = 11;
+    string uuid = 12;
 }

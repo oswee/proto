@@ -1,0 +1,31 @@
+// protoc -I . -I project/v1 --go_out=plugins=grpc:$GOPATH/src/ project/v1/project.proto
+
+syntax = "proto3";
+
+package oswee.project.v1;
+
+option go_package = "github.com/oswee/stubs/project/v1";
+
+import "google/protobuf/timestamp.proto";
+
+service ProjectCommandService {
+    rpc CreateProject(CreateProjectRequest) returns (Project);
+}
+
+service ProjectQueryService {
+    rpc GetProject(GetProjectRequest) returns (Project);
+}
+
+message CreateProjectRequest {
+    Project project = 1;
+}
+
+message GetProjectRequest {
+    string uuid = 1;
+}
+
+message Project {
+    string uuid = 1;
+    string stakeholder_id = 2;
+    google.protobuf.Timestamp create_time= 3;
+}
