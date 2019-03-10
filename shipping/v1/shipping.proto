@@ -1,0 +1,240 @@
+// protoc -I . -I shipping/v1 --go_out=plugins=grpc:$GOPATH/src/ shipping/v1/shipping.proto
+
+syntax = "proto3";
+
+package oswee.shipping.v1;
+
+option go_package = "github.com/oswee/stubs/shipping/v1";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service ProjectCommandService {
+    rpc CreateProject(CreateProjectRequest) returns (Project);
+    rpc UpdateProject(UpdateProjectRequest) returns (Project);
+    rpc DeleteProject(DeleteProjectRequest) returns (google.protobuf.Empty);
+    rpc GeocodeProject(GeocodeProjectRequest) returns (Project);
+}
+
+service ProjectQueryService {
+    rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse);
+    rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
+}
+
+service WaylistCommandService {
+    rpc CreateWaylist(CreateWaylistRequest) returns (Waylist);
+    rpc UpdateWaylist(UpdateWaylistRequest) returns (Waylist);
+    rpc DeleteWaylist(DeleteWaylistRequest) returns (google.protobuf.Empty);
+    rpc GeocodeWaylist(GeocodeWaylistRequest) returns (Waylist);
+}
+
+service WaylistQueryService {
+    rpc ListWaylists(ListWaylistsRequest) returns (ListWaylistsResponse);
+    rpc GetWaylist(GetWaylistRequest) returns (GetWaylistResponse);
+}
+
+service OrderCommandService {
+    rpc CreateOrder(CreateOrderRequest) returns (Order);
+    rpc UpdateOrder(UpdateOrderRequest) returns (Order);
+    rpc DeleteOrder(DeleteOrderRequest) returns (google.protobuf.Empty);
+    rpc GeocodeOrder(GeocodeOrderRequest) returns (Order);
+}
+
+service OrderQueryService {
+    rpc ListOrders(ListOrdersRequest) returns (ListOrdersResponse);
+    rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
+}
+
+message Project {
+    string uuid = 1;
+    string stakeholder_uuid = 2;
+    string name = 3; // Some friendly project name.
+    Status status = 4;
+    google.protobuf.Timestamp create_time = 5;
+
+    message Status {
+        Status status = 1;
+        google.protobuf.Timestamp time = 2;
+
+        enum Status {
+            DRAFT = 0;
+            ACCEPTED = 1;
+            ACTIVE = 2;
+            FINISHED = 3;
+            ARCHIVED = 4;
+        }
+    }
+}
+
+message Waylist {
+    string uuid = 1;
+    string stakeholder_uuid = 2;
+    string project_uuid = 3;
+    string color = 4;
+    Supplier supplier = 5;
+    Total total = 6;
+    Status status = 7;
+    google.protobuf.Timestamp create_time = 8;
+    
+    message Supplier {
+        string name = 1;
+    }
+
+    message Total {
+        int32 orders = 1;
+        double weight = 2;
+    }
+
+    message Status {
+        Status status = 1;
+        google.protobuf.Timestamp time = 2;
+
+        enum Status {
+            DRAFT = 0;
+            ACCEPTED = 1;
+            ACTIVE = 2;
+            FINISHED = 3;
+            ARCHIVED = 4;
+        }
+    }
+}
+
+message Order {
+    string uuid = 1;
+    string stakeholder_uuid = 2;
+    string project_uuid = 3;
+    string waylist_uuid = 4;
+    string reference = 5; // Should i move this to Details?
+    FinalDestination final_destination = 6;
+    Total total = 7;
+    Status status = 8;
+    google.protobuf.Timestamp create_time = 9;
+
+    message FinalDestination {
+        int32 sequence = 1;
+        Consignee consignee = 2;
+        Destination destination = 3;
+
+        message Consignee {
+            string name = 1;
+        }
+
+        message Destination {
+            string address = 1;
+            string zip = 2;
+            Geo geo = 3;
+            
+            message Geo {
+                double lat = 1;
+                double lon = 2;
+            }
+        }
+    }
+
+    message Total {
+        int32 parts = 1;
+        double weight = 2;
+    }
+
+    message Status {
+        Status status = 1;
+        google.protobuf.Timestamp time = 2;
+
+        enum Status {
+            DRAFT = 0;
+            ACCEPTED = 1;
+            PICKED = 2;
+            DELIVERY = 3;
+            DELIVERED = 4;
+            ARCHIVED = 5;
+        }
+    }
+}
+
+message CreateProjectRequest {
+    Project project = 1;
+}
+message UpdateProjectRequest {
+    Project project = 1;
+}
+message DeleteProjectRequest {
+    string uuid = 1;
+}
+message GeocodeProjectRequest {
+    string uuid = 1;
+}
+
+message ListProjectsRequest {
+    string stakeholder_uuid = 1;
+    int32 page_number = 2;
+    int32 result_per_page = 3;
+}
+message GetProjectRequest {
+    string uuid = 1;
+}
+
+message ListProjectsResponse {
+    repeated Project projects = 1;
+}
+message GetProjectResponse {
+    Project project = 1;
+}
+
+message CreateWaylistRequest {
+    Waylist waylist = 1;
+}
+message UpdateWaylistRequest {
+    Waylist waylist = 1;
+}
+message DeleteWaylistRequest {
+    string uuid = 1;
+}
+message GeocodeWaylistRequest {
+    string uuid = 1;
+}
+
+message ListWaylistsRequest {
+    string project_uuid = 1;
+    int32 page_number = 2;
+    int32 result_per_page = 3;
+}
+message GetWaylistRequest {
+    string uuid = 1;
+}
+
+message ListWaylistsResponse {
+    repeated Waylist waylists = 1;
+}
+message GetWaylistResponse {
+    Waylist waylist = 1;
+}
+
+message CreateOrderRequest {
+    Order order = 1;
+}
+message UpdateOrderRequest {
+    Order order = 1;
+}
+message DeleteOrderRequest {
+    string uuid = 1;
+}
+message GeocodeOrderRequest {
+    string uuid = 1;
+}
+
+message ListOrdersRequest {
+    string project_uuid = 1;
+    string waylist_uuid = 2;
+    int32 page_number = 3;
+    int32 result_per_page = 4;
+}
+message GetOrderRequest {
+    string uuid = 1;
+}
+
+message ListOrdersResponse {
+    repeated Order orders = 1;
+}
+message GetOrderResponse {
+    Order order = 1;
+}

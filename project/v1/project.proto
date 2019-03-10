@@ -26,6 +26,8 @@ message GetProjectRequest {
 
 message Project {
     string uuid = 1;
-    string stakeholder_id = 2;
-    google.protobuf.Timestamp create_time= 3;
+    string session_id = 2; // Session is unique UUID identifier of anonymous session when public project was created. Will be used to load the same project for the same gues user.
+    string stakeholder_id = 3;
+    string name = 4;
+    google.protobuf.Timestamp create_time = 5;
 }
