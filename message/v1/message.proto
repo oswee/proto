@@ -1,4 +1,4 @@
-// Linux - protoc -I . -I message/v1 --go_out=plugins=grpc:$GOPATH/src/ message/v1/message.proto
+// protoc -I . -I message/v1 --go_out=plugins=grpc:$GOPATH/src/ message/v1/message.proto
 
 syntax = "proto3";
 
@@ -7,18 +7,17 @@ syntax = "proto3";
 option go_package = "github.com/oswee/stubs/message/v1";
 
 package oswee.message.v1;
-
+import "google/protobuf/empty.proto";
 service MessageQueryService {
     rpc ListMessages(ListMessagesRequest) returns (ListMessagesResponse);
 }
 
 service MessageCommandService {
-    rpc CreateMessage(CreateMessageRequest) returns (Message);
+    rpc CreateMessage(CreateMessageRequest) returns (google.protobuf.Empty);
 }
 
-
 message CreateMessageRequest {
-    Message message = 1;
+    MessageEvent event = 1;
 }
 
 message ListMessagesRequest {
@@ -29,6 +28,16 @@ message ListMessagesRequest {
 
 message ListMessagesResponse {
     repeated Message messages = 1;
+}
+
+message MessageEvent {
+    string kind = 1;
+    Payload payload = 2;
+}
+
+message Payload {
+    string senders_name = 1;
+    string body = 2;
 }
 
 message Message {

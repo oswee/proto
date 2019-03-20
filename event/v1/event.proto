@@ -1,0 +1,22 @@
+// protoc -I . -I event/v1 --go_out=plugins=grpc:$GOPATH/src/ event/v1/event.proto
+
+syntax = "proto3";
+
+package oswee.event.v1;
+
+option go_package = "github.com/oswee/stubs/event/v1";
+
+// import "google/protobuf/empty.proto";
+// import "google/protobuf/timestamp.proto";
+
+// service EventCommandService {
+//     rpc CreateEvent(Event) returns (google.protobuf.Empty);
+// }
+
+// https://docs.wolkenkit.io/1.2.0/reference/data-structures/commands/
+
+// https://medium.com/@shijuvar/building-microservices-with-event-sourcing-cqrs-in-go-using-grpc-nats-streaming-and-cockroachdb-983f650452aa
+message Event {
+    string type = 1;
+    string payload = 2;
+}

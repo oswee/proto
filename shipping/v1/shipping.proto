@@ -10,22 +10,22 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 service ProjectCommandService {
-    rpc CreateProject(CreateProjectRequest) returns (Project);
-    rpc UpdateProject(UpdateProjectRequest) returns (Project);
+    rpc CreateProject(CreateProjectRequest) returns (google.protobuf.Empty);
+    rpc UpdateProject(UpdateProjectRequest) returns (google.protobuf.Empty);
     rpc DeleteProject(DeleteProjectRequest) returns (google.protobuf.Empty);
-    rpc GeocodeProject(GeocodeProjectRequest) returns (Project);
+    rpc GeocodeProject(GeocodeProjectRequest) returns (google.protobuf.Empty);
 }
 
 service ProjectQueryService {
     rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse);
-    rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
+    rpc GetProject(GetProjectRequest) returns (Project);
 }
 
 service WaylistCommandService {
-    rpc CreateWaylist(CreateWaylistRequest) returns (Waylist);
-    rpc UpdateWaylist(UpdateWaylistRequest) returns (Waylist);
+    rpc CreateWaylist(CreateWaylistRequest) returns (google.protobuf.Empty);
+    rpc UpdateWaylist(UpdateWaylistRequest) returns (google.protobuf.Empty);
     rpc DeleteWaylist(DeleteWaylistRequest) returns (google.protobuf.Empty);
-    rpc GeocodeWaylist(GeocodeWaylistRequest) returns (Waylist);
+    rpc GeocodeWaylist(GeocodeWaylistRequest) returns (google.protobuf.Empty);
 }
 
 service WaylistQueryService {
@@ -34,10 +34,10 @@ service WaylistQueryService {
 }
 
 service OrderCommandService {
-    rpc CreateOrder(CreateOrderRequest) returns (Order);
-    rpc UpdateOrder(UpdateOrderRequest) returns (Order);
+    rpc CreateOrder(CreateOrderRequest) returns (google.protobuf.Empty);
+    rpc UpdateOrder(UpdateOrderRequest) returns (google.protobuf.Empty);
     rpc DeleteOrder(DeleteOrderRequest) returns (google.protobuf.Empty);
-    rpc GeocodeOrder(GeocodeOrderRequest) returns (Order);
+    rpc GeocodeOrder(GeocodeOrderRequest) returns (google.protobuf.Empty);
 }
 
 service OrderQueryService {
@@ -46,17 +46,18 @@ service OrderQueryService {
 }
 
 message Project {
-    string uuid = 1;
-    string stakeholder_uuid = 2;
+    bytes uuid = 1;
+    bytes stakeholder_uuid = 2;
     string name = 3; // Some friendly project name.
     Status status = 4;
     google.protobuf.Timestamp create_time = 5;
 
     message Status {
-        Status status = 1;
+        Id id = 1;
         google.protobuf.Timestamp time = 2;
 
-        enum Status {
+        // TODO: rename to Id
+        enum Id {
             DRAFT = 0;
             ACCEPTED = 1;
             ACTIVE = 2;
@@ -152,8 +153,23 @@ message Order {
 }
 
 message CreateProjectRequest {
-    Project project = 1;
+    string type = 1;
+    Payload payload = 2;
+
+    message Payload {
+        string name = 1;
+    }
 }
+
+message ProjectCreated {
+    string type = 1;
+    Payload payload = 2;
+
+    message Payload {
+        Project project = 1;
+    }
+}
+
 message UpdateProjectRequest {
     Project project = 1;
 }
@@ -170,7 +186,7 @@ message ListProjectsRequest {
     int32 result_per_page = 3;
 }
 message GetProjectRequest {
-    string uuid = 1;
+    bytes uuid = 1;
 }
 
 message ListProjectsResponse {
