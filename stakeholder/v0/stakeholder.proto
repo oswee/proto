@@ -1,0 +1,50 @@
+// protoc -I . -I stakeholder/v0 --go_out=plugins=grpc:$GOPATH/src/ stakeholder/v0/stakeholder.proto
+
+syntax = "proto3";
+
+package oswee.stakeholder.v0;
+
+option go_package = "github.com/oswee/stubs/stakeholder/v0";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service StakeholderCommandService {
+    rpc CreateStakeholder(CreateStakeholderRequest) returns (google.protobuf.Empty);
+}
+
+service StakeholderQueryService {
+    rpc ListStakeholders(ListStakeholdersRequest) returns (ListStakeholdersResponse);
+    rpc GetStakeholder(GetStakeholderRequest) returns (Stakeholder);
+}
+
+message Stakeholder {
+    bytes uuid = 1;
+    google.protobuf.Timestamp create_time = 2;
+}
+
+message CreateStakeholderRequest {
+    string type = 1; // Event type. Example: "CREATE_STAKEHOLDER"
+}
+
+message ListStakeholdersRequest {
+    int32 page_number = 1;
+    int32 result_per_page = 2;
+}
+
+message ListStakeholdersResponse {
+    repeated Stakeholder stakeholders = 1;
+}
+
+message GetStakeholderRequest {
+    bytes uuid = 1;
+}
+
+message StakeholderCreated {
+    string type = 1; // Event type. Example: "STAKEHOLDER_CREATED"
+    Payload payload = 2;
+
+    message Payload {
+        Stakeholder stakeholder = 1;
+    }
+}
