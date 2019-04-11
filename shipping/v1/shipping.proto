@@ -157,7 +157,8 @@ message CreateProjectRequest {
     Payload payload = 2;
 
     message Payload {
-        string name = 1;
+        string stakeholder_uuid = 1;
+        string name = 2;
     }
 }
 

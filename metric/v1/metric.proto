@@ -19,11 +19,12 @@ message CreatePageViewRequest {
 
 message PageView {
     int64 id = 1;
-    string x_forwarded_host = 2;
-    string x_forwarded_server = 3;
-    string url = 4;
-    string user_agent = 5;
-    string x_forwarded_for = 6;
-    string request_time = 7;
-    string request_headers = 8;
+    string public_sid = 2;
+    string x_forwarded_host = 3;
+    string x_forwarded_server = 4;
+    string url = 5;
+    string user_agent = 6;
+    string x_forwarded_for = 7;
+    string request_time = 8;
+    string request_headers = 9;
 }

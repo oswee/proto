@@ -35,8 +35,9 @@ message UpdateRouteRequest {
 
 message ListRoutesRequest {
     int64 stakeholder_id = 1;
-    int32 page_number = 2;
-    int32 result_per_page = 3;
+    bytes project_uuid = 2;
+    int32 page_number = 3;
+    int32 result_per_page = 4;
 }
 
 message ListRoutesResponse {
@@ -50,7 +51,7 @@ message DeleteRouteRequest {
 message Route {
     int64 id = 1;
     string uuid = 2;
-    string project_id = 3;
+    bytes project_uuid = 3;
     string name = 4;
     string stakeholder_id = 5;
     string route_color = 6;

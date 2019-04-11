@@ -25,6 +25,11 @@ message Stakeholder {
 
 message CreateStakeholderRequest {
     string type = 1; // Event type. Example: "CREATE_STAKEHOLDER"
+    Payload payload = 2;
+
+    message Payload {
+        string stakeholder_uuid = 1;
+    }
 }
 
 message ListStakeholdersRequest {

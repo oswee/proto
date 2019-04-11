@@ -41,8 +41,9 @@ message CreateDeliveryOrderRequest {
 
 message ListDeliveryOrdersRequest {
     int64 stakeholder_id = 1;
-    int32 page_number = 2;
-    int32 result_per_page = 3;
+    bytes project_uuid = 2;
+    int32 page_number = 3;
+    int32 result_per_page = 4;
 }
 
 message GetShippingOrderRequest {
@@ -69,16 +70,16 @@ message GeoCodeDeliveryOrderRequest {
 
 message DeliveryOrder {
     int64 id = 1;
-    int64 stakeholder_id = 2;
-    string project_id = 3;
-    string reference = 4;
-    string consignee_title = 5;
-    string destination_address = 6;
-    string destination_zip = 7;
-    double destination_lat = 8;
-    double destination_lng = 9;
-    int32 parts_count = 10;
-    double total_weight = 11;
-    int64 routing_sequence = 12;
-    string uuid = 13;
+    string uuid = 2;
+    int64 stakeholder_id = 3;
+    bytes project_uuid = 4;
+    string reference = 5;
+    string consignee_title = 6;
+    string destination_address = 7;
+    string destination_zip = 8;
+    double destination_lat = 9;
+    double destination_lng = 10;
+    int32 parts_count = 11;
+    double total_weight = 12;
+    int64 routing_sequence = 13;
 }

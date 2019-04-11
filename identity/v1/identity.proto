@@ -16,6 +16,7 @@ service UserCommandService {
 service UserQueryService {
     rpc GetUserByUsername(GetUserByUsernameRequest) returns (User);
     rpc GetUserByEmail(GetUserByEmailRequest) returns (User);
+    rpc GetUserByID(GetUserByIdRequest) returns (User);
     rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
 }
 
@@ -37,6 +38,10 @@ message GetUserByUsernameRequest {
 
 message GetUserByEmailRequest {
     User user = 1;
+}
+
+message GetUserByIdRequest {
+    bytes uuid = 1;
 }
 
 message ListUsersRequest {}
