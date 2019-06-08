@@ -31,6 +31,7 @@ service WaylistCommandService {
 service WaylistQueryService {
     rpc ListWaylists(ListWaylistsRequest) returns (ListWaylistsResponse);
     rpc GetWaylist(GetWaylistRequest) returns (GetWaylistResponse);
+    rpc AssignOrders(AssignOrdersRequest) returns (google.protobuf.Empty);
 }
 
 service OrderCommandService {
@@ -226,6 +227,14 @@ message GetWaylistResponse {
     Waylist waylist = 1;
 }
 
+message AssignOrdersRequest {
+    bytes uuid = 1;
+    Orders orders = 2;
+    message Orders {
+        repeated bytes uuid = 1;
+    }
+}
+
 message CreateOrderRequest {
     Order order = 1;
 }
@@ -252,6 +261,7 @@ message GetOrderRequest {
 message ListOrdersResponse {
     repeated Order orders = 1;
 }
+
 message GetOrderResponse {
     Order order = 1;
 }
